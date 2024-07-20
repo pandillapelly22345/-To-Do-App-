@@ -30,17 +30,18 @@ const LoginForm = ({setIsLoggedIn}) => {
             email: email,
             password: password,
         }).then((response) => {
-            if(response.data.message){
-                console.log(response.data.message);
-                toast.error("User Not Found.")
-            }
-            else{
+            if (response.data.success) {
                 setIsLoggedIn(true);
                 toast.success("Logged in successfully");
                 navigate('/dashboard', { state: { email: email } });
+            } else {
+                toast.error(response.data.message);
             }
-        }).catch(err => console.log(err))
-    }
+        }).catch(err => {
+            console.log(err);
+            toast.error("An error occurred during login.");
+        });
+    };
 
   return (
     <form onSubmit={loginHandler}>
@@ -74,7 +75,7 @@ const LoginForm = ({setIsLoggedIn}) => {
             />
         </label>
 
-        <button>
+        <button type="submit">
             <p>Log In</p>
         </button>
     </form>
