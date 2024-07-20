@@ -61,6 +61,25 @@ con.connect(function (error) {
 
 // })
 
+app.post('/register', (req, res) => {
+  const sql = "INSERT INTO users (namee, email_id, passwords) VALUES (?, ?, ?)";
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  con.query(sql, [name, email, password], (err, data) => {
+    if(err){
+      return res.json(500)({message: "something went wrong", err: err});
+    }
+    if(data){
+      return res.status(200).json({success: true, message: "Rgistered successfully"});
+    }
+    else{
+      res.status(200).json({success: false, message: "enter correct details"})
+    }
+  });
+});
+
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   const sql = "SELECT * FROM users WHERE email_id = ? AND passwords = ?";

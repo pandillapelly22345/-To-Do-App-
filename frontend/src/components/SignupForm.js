@@ -1,4 +1,7 @@
+import Axios from 'axios';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = ({setIsLoggedIn}) => {
     const [formData, setFormData] = useState({
@@ -31,8 +34,32 @@ const SignupForm = ({setIsLoggedIn}) => {
     //         }
     //     })
     // }
+
+    const navigates = useNavigate();
+    function signupHandler(event){
+        
+        const {name, email, password} = formData;
+        event.preventDefault();
+        Axios.post("http://localhost:4001/register", {
+            name: name,
+            email: email,
+            password: password
+        }).then((res) => {
+            if(res.data.success){
+                toast.success(res.data.message);
+                navigates ('/');
+            }
+            else{
+                toast.error(res.data.message)
+            }
+        }).catch(err => {
+            console.log(err);
+            toast.error("An error occurred during login.");
+        });
+    }
+
   return (
-    <form>
+    <form onSubmit={signupHandler}>
         <label>
             <p>
                 First Name <sup>*</sup>
@@ -75,7 +102,7 @@ const SignupForm = ({setIsLoggedIn}) => {
             />
         </label>
 
-        <button>
+        <button type='submit'>
             <p>Sign Up</p>
         </button>
     </form>
