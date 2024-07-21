@@ -1,15 +1,14 @@
 import React from 'react'
 
-const Dashboard = () => {
+const Dashboard = ({userName}) => {
 
   
   return (
     <div>
       <div>
-        <h2>Welcome</h2>
-        <h2></h2>
+        <h2>Welcome, {userName}</h2>
       </div>
-
+      
       <button>Add Task +</button>
 
       <h3>To-Do</h3>

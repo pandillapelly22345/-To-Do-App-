@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from "react-hot-toast";
 
 
-const LoginForm = ({setIsLoggedIn}) => {
+const LoginForm = ({setIsLoggedIn, setUserName}) => {
     const [formData, setFormData] = useState({
         email: "", password: ""
     });
@@ -32,8 +32,23 @@ const LoginForm = ({setIsLoggedIn}) => {
         }).then((response) => {
             if (response.data.success) {
                 setIsLoggedIn(true);
-                toast.success("Logged in successfully");
-                navigate('/dashboard', { state: { email: email } });
+                Axios.get("http://localhost:4001/user", {
+                    params: { email }
+                }).then((response) => {
+                    if(response.data.success){
+                        setUserName(response.data.name);
+                        toast.success("Logged in successfully");
+                        navigate('/dashboard', { state: { email: email } });
+                    }
+                    else{
+                        toast.error("could not fetch user details");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    toast.error("An error occurred while fetching user details.");
+                });
+                
             } else {
                 toast.error(response.data.message);
             }
@@ -41,7 +56,7 @@ const LoginForm = ({setIsLoggedIn}) => {
             console.log(err);
             toast.error("An error occurred during login.");
         });
-    };
+    }
 
   return (
     <form onSubmit={loginHandler}>

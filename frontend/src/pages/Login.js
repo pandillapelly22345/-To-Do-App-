@@ -1,7 +1,7 @@
 import React from 'react'
 import Template from '../components/Template'
 
-const Login = ({setIsLoggedIn}) => {
+const Login = ({setIsLoggedIn, setUserName}) => {
   return (
     <Template
       title="Welcome Back"
@@ -9,6 +9,7 @@ const Login = ({setIsLoggedIn}) => {
       desc2="Get Started"
       formtype="login"
       setIsLoggedIn={setIsLoggedIn}
+      setUserName={setUserName}
     />
   )
 }
