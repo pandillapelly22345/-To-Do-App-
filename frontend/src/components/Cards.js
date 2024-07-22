@@ -1,14 +1,15 @@
 import React from 'react'
 
-const Cards = (props) => {
+const Cards = ({tasks}) => {
+  const task = tasks.task;
+  const date = tasks.date;
   return (
     <div>
-        <p></p>
+        <p>{task}</p>
 
         <div>
             <p></p>
-            <p></p>
-            <p></p>
+            <p>{date}</p>
         </div>
     </div>
   )

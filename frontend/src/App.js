@@ -5,10 +5,12 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import { useState } from 'react';
+import Addtask from './pages/Addtask';
 
 function App() {
   const[isLoggedIn, setIsLoggedIn] = useState(false);
   const[userName, setUserName] = useState('');
+  
 
   return (
     <div>
@@ -18,6 +20,7 @@ function App() {
         <Route path='/' element={<Login setIsLoggedIn={setIsLoggedIn} setUserName={setUserName}/>} />
         <Route path='signup' element={<Signup setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path='dashboard' element={<Dashboard userName={userName}/>} />
+        <Route path='addtask' element={<Addtask/>} />
       </Routes>
 
     </div>
