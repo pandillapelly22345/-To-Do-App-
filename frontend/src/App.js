@@ -10,6 +10,7 @@ import Addtask from './pages/Addtask';
 function App() {
   const[isLoggedIn, setIsLoggedIn] = useState(false);
   const[userName, setUserName] = useState('');
+  // const[email, setEmail] = useState('');
   
 
   return (

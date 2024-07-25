@@ -114,6 +114,41 @@ app.post('/login', (req, res) => {
 });
 
 
+app.get('/tasks', (req, res) => {
+  const email = req.query.email;
+  const sql = "SELECT * FROM tasks WHERE email = ?";
+
+  con.query(sql, [email], (err, data) =>{
+    if(err){
+      return res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+    return res.status(200).json(data);
+  })
+
+})
+
+app.post('/addtask', (req, res) => {
+  const {task, date, email} = req.body;
+  const sql = "INSERT INTO tasks (email, task, datee) VALUES (?, ?, ?)";
+
+  con.query(sql, [email, task, date], (err, data) => {
+    if(err){
+      return res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+    if(data){
+      return res.status(200).json({success: true, message: "Added Task successfully"});
+    }
+    else{
+      res.status(200).json({success: false, message: "enter correct details"})
+    }
+  })
+})
+
+// app.post('/addtask', (req, res) => {
+//   const
+// })
+
+
 app.listen(4001, () => {
   console.log("running backend server");
 })

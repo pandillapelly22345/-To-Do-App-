@@ -8,6 +8,7 @@ const Dashboard = ({userName}) => {
   const location = useLocation();
   const email = location.state?.email || '';
   const [tasks, setTasks] = useState([]);
+  
 
   useEffect(() => {
     if(email){
@@ -15,6 +16,7 @@ const Dashboard = ({userName}) => {
         params: { email }
       })
       .then(res => {
+        console.log(res.data)
         setTasks(res.data);
       })
       .catch(error => {
@@ -31,19 +33,40 @@ const Dashboard = ({userName}) => {
         <h2>Welcome, {userName}</h2>
       </div>
       
-      <Link to="/addtask">
+      <Link to={"/addtask"} state={{ email: email }}>
         <button>
           Add Task +
         </button>
       </Link>
 
-      <h3>To-Do</h3>
+      <table>
+        <thead>
+          <tr>
+            <th className="px-4 py-2 border-b-2 border-gray-200">Task</th>
+            <th className="px-4 py-2 border-b-2 border-gray-200">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            tasks.map((data, i) => (
+              <div key={i} className="bg-white shadow-md rounded-lg mb-10">
+                <tr>
+                  <td className="px-4 py-4 border-b border-gray-200">{data.task}</td>
+                  <td className="px-4 py-4 border-b border-gray-200">{data.datee}</td>
+                </tr>
+              </div>
+            ))
+          }
+        </tbody>
+      </table>
 
-      <div>
+      {/* <h3>To-Do</h3> */}
+
+      {/* <div>
         {tasks.map((task) => {
           <Cards key={task.id} task={task}/>
         })}
-      </div>
+      </div> */}
     </div>
   )
 }
