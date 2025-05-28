@@ -1,12 +1,15 @@
 import React from 'react'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
+import './Template.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const Template = ({title, desc1, desc2, formtype, setIsLoggedIn, setUserName}) => {
+  const navigate = useNavigate();
   return (
-    <div>
-        <div>
+    <div className="template-container">
+        <div className="template-box">
             <h1>{title}</h1>
             <p>
                 <span>{desc1}</span>
@@ -17,13 +20,13 @@ const Template = ({title, desc1, desc2, formtype, setIsLoggedIn, setUserName}) =
             (<SignupForm setIsLoggedIn={setIsLoggedIn} />) :
             (<LoginForm setIsLoggedIn={setIsLoggedIn} setUserName={setUserName}/>)}
 
-            <div>
+            <div className="or-separator">
                 <div></div>
                 <p>OR</p>
                 <div></div>
             </div>
-
-            <button>
+            
+            <button onClick={() => navigate('/')}>
                 <p>Already have an account?</p>
             </button>
 

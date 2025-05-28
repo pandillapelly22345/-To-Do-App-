@@ -1,6 +1,8 @@
 // import { Axios } from 'axios';
 // import { response } from 'express';
 import Axios from "axios";
+import './AuthForms.css';
+
 
 import React, { useState } from 'react'
 
@@ -26,13 +28,13 @@ const LoginForm = ({setIsLoggedIn, setUserName}) => {
     function loginHandler(event){
         event.preventDefault();
         const { email, password } = formData;
-        Axios.post("http://localhost:4001/login", {
+        Axios.post("https://todo-backend-evn3.onrender.com/login", {
             email: email,
             password: password,
         }).then((response) => {
             if (response.data.success) {
                 setIsLoggedIn(true);
-                Axios.get("http://localhost:4001/user", {
+                Axios.get("https://todo-backend-evn3.onrender.com/user", {
                     params: { email }
                 }).then((response) => {
                     if(response.data.success){

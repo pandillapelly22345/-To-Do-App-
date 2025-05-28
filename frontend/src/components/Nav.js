@@ -1,13 +1,15 @@
 import React from 'react'
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom'
+import './Nav.css';
+
 
 const Nav = (props) => {
     let isLoggedIn = props.isLoggedIn;
     let setIsLoggedIn = props.setIsLoggedIn;
   return (
-    <div className='flex justify-center items-center'>
-        <div className='flex gap-3 '>
+    <div className="nav-container">
+        <div className="nav-buttons">
            { !isLoggedIn &&
              <Link to="/">
                 <button>

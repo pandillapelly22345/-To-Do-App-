@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+require("dotenv").config();
+
 
 const app = express();
 app.use(express.json());
@@ -8,10 +10,11 @@ app.use(cors());
 
 const con = mysql.createConnection(
   {
-    host: "localhost",
-    user: "root",
-    password: "root123",
-    database: "todo",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
   }
 );
 
@@ -143,6 +146,22 @@ app.post('/addtask', (req, res) => {
     }
   })
 })
+
+app.delete('/tasks/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = "DELETE FROM tasks WHERE id = ?";
+
+  con.query(sql, [id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to delete task", error: err });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    return res.status(200).json({ success: true, message: "Task deleted successfully" });
+  });
+});
+
 
 // app.post('/addtask', (req, res) => {
 //   const

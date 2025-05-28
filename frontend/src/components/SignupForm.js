@@ -2,6 +2,7 @@ import Axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import './AuthForms.css';
 
 const SignupForm = ({setIsLoggedIn}) => {
     const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ const SignupForm = ({setIsLoggedIn}) => {
         
         const {name, email, password} = formData;
         event.preventDefault();
-        Axios.post("http://localhost:4001/register", {
+        Axios.post("https://todo-backend-evn3.onrender.com/register", {
             name: name,
             email: email,
             password: password
