@@ -63,6 +63,3 @@ efficient user authentication and data management.
    This will run both frontend and backend concurrently
    ```bash
    npm run dev
-
-
-
